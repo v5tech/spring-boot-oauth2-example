@@ -115,12 +115,23 @@ http://localhost:9999/oauth/authorize?response_type=token&client_id=appClient&re
 TOKEN=eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0NzgzNzQ3NTcsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6Ijg4Zjk4ZWYxLTZjOGItNDA1MC1iOTc3LWFlYjcxMzhlNjg2OCIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIk9BdXRoMiJdfQ.sop6d8acs6piMgiN1FH8EVw4Qglh69wU5vvdMQZ87YSVjtaTCQqpf4kR65jXtqTNuTTZ8azf_aD5GoIBaqVrDDGEHk8dZLciobgD1vexpX2XnrfAFUt0xHg1LXIO_mJtf7x4CBiF4ysGWdlhWQbX2wq5YNvG3QhIkRHdnvxBNSiLJPSaa2sqHKxdXs4J7tLnNN415K1TI2pV7_6C3p-BQD2qfdIWZXB2JLYSmTVjnvUQtjIvLDNu8OL7mvyfP2F_d-b-PAPYU4ul9RZfnB9hYr02i8M-7lYh7pK-SoA0MlMlIP-QSDpACTqWuWpyP_q8N-tFDwPZ997ES2FOaWArFA
 ```
 
+以`GET`方式获取资源
+
 ```
 $ curl -H "Authorization: Bearer $TOKEN" "localhost:9090/users"
 ```
 
+以`POST`方式获取资源
+
 ```
 $ curl -XPOST -H "Authorization: Bearer $TOKEN" "localhost:9090/users"
+```
+
+获取用户凭证
+
+```
+$ curl -H "Authorization: Bearer $TOKEN" "localhost:9999/user"
+{"details":{"remoteAddress":"0:0:0:0:0:0:0:1","sessionId":null,"tokenValue":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzgzODY3NjcsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6Ijc2OTYzMzkyLWUxYzItNDdmMC05ODZjLWZhODQxZmZhYTU1NyIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIm9wZW5pZCJdfQ.WiTSjojK0ow1x7fP0y3EZohCozU2kB4Sxi2xPd7A5RSb48N-KDM8PYjSX--D1iiEQiRt2xOdBij0J0A7pIHfqZMijphyJQtPQjyv_82AIP7hFuW-PFMo2P1VVSTWrZeYzCMCr8p1QaHbM5bJ1KTeiT_Ak8vbqmnd7r4KpqoyEehca69tr02nTPhi7YOfAjUm9czwqhhi2w4bL9b2epYhmv_d2B2LwCY4NZxv64xfeCti8ya-AG_hYoqNRGj2nIHaAR_uCWmDD6_tdESy5oKZJ-881Dr0VFduJu4cAcSxJX-PqI6HklknTm_Vzqik9lI9S02z3fj5sBM7trWvNuBnrQ","tokenType":"Bearer","decodedDetails":null},"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"userAuthentication":{"details":null,"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"principal":"admin","credentials":"N/A","name":"admin"},"principal":"admin","credentials":"","oauth2Request":{"clientId":"appClient","scope":["openid"],"requestParameters":{"client_id":"appClient"},"resourceIds":[],"authorities":[],"approved":true,"refresh":false,"redirectUri":null,"responseTypes":[],"extensions":{},"grantType":null,"refreshTokenRequest":null},"clientOnly":false,"name":"admin"}
 ```
 
 阅读以下类源码
