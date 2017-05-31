@@ -65,45 +65,93 @@ DQIDAQAB
 
 ### 运行OAuth2 Server，获取accesstoken
 
-* 使用grant_type=password获取accesstoken
+#### 1、password方式（密码凭证许可）
 
-使用`POST`方式请求`appClient:appSecret@http://localhost:9999/oauth/token`接口传递`grant_type=password`使用用户名密码直接授权获取`accesstoken`
+使用grant_type=password，使用用户名密码直接授权获取`accesstoken`
 
-获取具有只读权限的`accesstoken`
+* 获取具有只读权限的`accesstoken`
 
 ```
-$ curl -XPOST "appClient:appSecret@localhost:9999/oauth/token" -d "grant_type=password&username=user&password=user"
+$ curl "acme:acmesecret@localhost:9999/oauth/token" -d "grant_type=password&username=user&password=user"
 {"access_token":"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0NzgzNzQ3NTcsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6Ijg4Zjk4ZWYxLTZjOGItNDA1MC1iOTc3LWFlYjcxMzhlNjg2OCIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIk9BdXRoMiJdfQ.sop6d8acs6piMgiN1FH8EVw4Qglh69wU5vvdMQZ87YSVjtaTCQqpf4kR65jXtqTNuTTZ8azf_aD5GoIBaqVrDDGEHk8dZLciobgD1vexpX2XnrfAFUt0xHg1LXIO_mJtf7x4CBiF4ysGWdlhWQbX2wq5YNvG3QhIkRHdnvxBNSiLJPSaa2sqHKxdXs4J7tLnNN415K1TI2pV7_6C3p-BQD2qfdIWZXB2JLYSmTVjnvUQtjIvLDNu8OL7mvyfP2F_d-b-PAPYU4ul9RZfnB9hYr02i8M-7lYh7pK-SoA0MlMlIP-QSDpACTqWuWpyP_q8N-tFDwPZ997ES2FOaWArFA","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsiT0F1dGgyIl0sImF0aSI6Ijg4Zjk4ZWYxLTZjOGItNDA1MC1iOTc3LWFlYjcxMzhlNjg2OCIsImV4cCI6MTQ4MDkyMzU1NywiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiJmMWNhYTI5YS05Zjg5LTQ4YmItYTIxZi02MTI3OTM0YzI1MWEiLCJjbGllbnRfaWQiOiJhcHBDbGllbnQifQ.ZevWVRKmRIqJ7njhXmcykgGJ4sAY9qItMdFiLDEX68hAYcRpiv2Q5mifIH3HPvVB-Nv84oGHI2cam2Bs4gIH6SJbBlzYxanOdWOkyN9vknVEkFiA0bwh9hyem94sbbTmxYr3kFfuhFvPma6v7iD-YFxnVqvBo8WoMEMEwZlcOxD5fV0yyRdst_i7PTfPc4hyc5sfW75IJdGduD_tp5ePnRMO6pXUYXhfcCXgf3zHYd_HlR88cqA__yh_0b3AY4TFts19SW68LgzG72UOP5F1HYzLetiwtAwpnPJawTDCYQLMf5YCnHoNxZR3RKcuDE8xwgt_Ytn8Tg9KHMXZzk0Gig","expires_in":43199,"scope":"OAuth2","jti":"88f98ef1-6c8b-4050-b977-aeb7138e6868"}
 ```
 
-获取具有读写权限的`accesstoken`
+* 获取具有读写权限的`accesstoken`
 
 ```
-$ curl -XPOST "appClient:appSecret@localhost:9999/oauth/token" -d "grant_type=password&username=admin&password=admin"
+$ curl "acme:acmesecret@localhost:9999/oauth/token" -d "grant_type=password&username=admin&password=admin"
 {"access_token":"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0NzgzNzQ4MDQsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6IjgwYTU3Y2NkLTQzMGItNGQ5Zi1iODRjLWE0YTNjODQwODAxZiIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIk9BdXRoMiJdfQ.nePNHgpMDukjhyZEYe_PFNSoGtftA61UmPy93P3r6VCrofhQpXP6vRUCBVTY0NfPXAd250x-jrkDS3SjnrSsatMj3WoJpBjPP56SzPQu1J3gUUgnbSu2zfeFZTcA4cEyyaGvZf3tVzCH-g_DQjcPoBL-vBB-RuzML7PfY1Hj8Bbl3ODxnQzUNnvA2FPI_mDuTqiR8L9r1p6xDt9lBKWc_HiZIE7LGt8xNCUKBbj0kQVO3J_L3vUtjWVt2kuvmSJ9eEsO5U6SmZx0Z6B5Xbp5HNgB2lhBlBDZZHk6niA6Mjk1_0LQBERTNgNrtja7ukqH9gcw_s5d0mo6bJCQlzhOMg","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIk9BdXRoMiJdLCJhdGkiOiI4MGE1N2NjZC00MzBiLTRkOWYtYjg0Yy1hNGEzYzg0MDgwMWYiLCJleHAiOjE0ODA5MjM2MDQsImF1dGhvcml0aWVzIjpbIlJFQUQiLCJXUklURSJdLCJqdGkiOiIyODYyZDI3ZS0xYTJiLTQ5ZjAtOGYxZC1mYjI4N2M0MGI5OTMiLCJjbGllbnRfaWQiOiJhcHBDbGllbnQifQ.AHQUjBGynSJ3YvbIIeN92vdCwpOl-dg_m_M9ju935XcPT5AwXP6l99Yo0GnhT2UNqOEV4ibygXjOSY50ZtAVc3eeQC_bGEdqV1xF4fPx8cZ60cEV-dazm69dodGKTP93uFChn5zgxmZoKQHgrxVb3dnJnzMqkDAff9lf7aEbLsI12er9RWJ5bYLJKAUo9oKA3R2m6rO4YUwWsNctXeeq545MDuMR4SXBNwZ9KPGnOn_URKtXIYShnirVJwvlHZ5ZeaaQbn-PDqVyTG4seA7Qk_UQfSany1gSVQFZbgRZjX9pzIw6LV9eRm75gzPmcHMRcS-dtG2JBBYk75R7hmBCiw","expires_in":43199,"scope":"OAuth2","jti":"80a57ccd-430b-4d9f-b84c-a4a3c840801f"}
 ```
 
-* 使用`code`方式获取`accesstoken`
+#### 2、refresh_token方式
 
-使用`GET`方式请求`http://localhost:9999/oauth/authorize`接口传递`response_type=code`使用用户名密码授权（基于HttpBasic）先获取`authorization_code`，再使用获取到的`authorization_code`以`GET`方式请求`http://localhost:9999/oauth/token`接口传递`grant_type=authorization_code`获取`accesstoken`
+使用`password方式`和`authorization_code方式`获取`accesstoken`的同时，也返回了一个`refresh_token`，使用接口`/oauth/token -d grant_type=refresh_token -d refresh_token=$refresh_token`返回一个新的`accesstoken`
 
-```
-http://localhost:9999/oauth/authorize?response_type=code&client_id=appClient&redirect_uri=http://notes.coding.me
-```
-
-输入用户名、密码，最终重定向到`http://notes.coding.me/?code=8JsYwV`，再根据返回的`code`获取access token
+* password方式
 
 ```
-$ curl appClient:appSecret@localhost:9999/oauth/token -d grant_type=authorization_code -d client_id=appClient -d redirect_uri=http://notes.coding.me -d code=8JsYwV
+curl "acme:acmesecret@localhost:9999/oauth/token" -d "grant_type=password&username=user&password=user"
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTYyNjI4NjgsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6IjQ3NTYwMTc3LWVhODMtNGY3OS04Y2E3LWViMjBhNjAzY2VmZSIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.LUnyJD5vp3pAcvDRh4QUgj6O6ggkljgm7wGYy_DN2n3p48DQQo6weKeGwghUplr0En4d8_Dw0w7owPU0XgNUIas6gBLfOvWp3ATe8Ie83xsnTlP5OAFVL5fhuoqeT55JlGB8RdpjXGkdGufLm1cNA8nkwuADLA0tGdhSzIN83R5KpByIt0tTuvtGdiix6YiMiAmuUlq9sC28ERq4_urbGrwQjuuMxdpZIp_Gvw7xOOYHtdKwdxqFiBhnIXnGFUZPR6nnHguGAiQ-B9ZIUYjTzCr-0Q7kMhDdY_IPKh0IvYrIx0o3occ0QRcHTe5d5OJOc-vT-qi15E0_SMToFHZdVg","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6IjQ3NTYwMTc3LWVhODMtNGY3OS04Y2E3LWViMjBhNjAzY2VmZSIsImV4cCI6MTQ5ODgxMTY2OCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiI5MzExOTZjOS03NGU2LTQ3ZDUtYjA3MC0xMGNhYzg2NjUzZTAiLCJjbGllbnRfaWQiOiJhY21lIn0.aQqsdkQfCy4L4FjV6TZyRehG6ZjgmuWe-30uuco-g5GKmuxJGEoY6dYOiDhsTOgKoxDXJwN6kACZMePInP4cXrExK6N7n25MbUXn-IxPGb1TTy3YmcaVwLM-oP2IW-dxzYLjmT3XYgA8Xt4vY2z8trzkvR2jefP-cHP0uQq7jFjDVYSq37epJozPNYWd_630jWokjbOQr3MwMcsLjmUz8eUmMm8I7Ln1XM2RFlmw09_eFLk0FNtwuWd-IFXsjPc_2jaNASJYEfurNlTN8OH7LKe34enDZoPgpbsMxUUsF3EW9iq2NwnV9btEPqe-a-wJDCftXvV7GxmOKxdg--X2zw","expires_in":43199,"scope":"openid","jti":"47560177-ea83-4f79-8ca7-eb20a603cefe"}
+```
+上面的请求返回一个`access_token`和`refresh_token`，使用该`refresh_token`请求`/oauth/token -d grant_type=refresh_token -d refresh_token`接口返回一个新的`accesstoken`
+
+```
+curl acme:acmesecret@localhost:9999/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6IjQ3NTYwMTc3LWVhODMtNGY3OS04Y2E3LWViMjBhNjAzY2VmZSIsImV4cCI6MTQ5ODgxMTY2OCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiI5MzExOTZjOS03NGU2LTQ3ZDUtYjA3MC0xMGNhYzg2NjUzZTAiLCJjbGllbnRfaWQiOiJhY21lIn0.aQqsdkQfCy4L4FjV6TZyRehG6ZjgmuWe-30uuco-g5GKmuxJGEoY6dYOiDhsTOgKoxDXJwN6kACZMePInP4cXrExK6N7n25MbUXn-IxPGb1TTy3YmcaVwLM-oP2IW-dxzYLjmT3XYgA8Xt4vY2z8trzkvR2jefP-cHP0uQq7jFjDVYSq37epJozPNYWd_630jWokjbOQr3MwMcsLjmUz8eUmMm8I7Ln1XM2RFlmw09_eFLk0FNtwuWd-IFXsjPc_2jaNASJYEfurNlTN8OH7LKe34enDZoPgpbsMxUUsF3EW9iq2NwnV9btEPqe-a-wJDCftXvV7GxmOKxdg--X2zw
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTYyNjI5MTcsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6IjRhZjk1NjY1LTNiOTctNDc2Yy04MjMzLWEyMjJhZDYxNDg1OCIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.GfEYwBZ1cBloU-w_vV7xYqoVI0u_BnfF1AyLb9YvpJFcOZWf0go8GdJ-ZAftUd5fvK8iocBh-Jg0cCkq7q1hySLu9T-DWv6Z80QeTl2e56wNy7W-qGx66cdpdvNUFnJnhsNZIjbnJH67_ccerohjHuM9HlTCK9O58sUmnPYPZwQIhH5dsR_uoXVHQhdXm-z7selPozvTtM6arGeZqhvHs0TK2X7WCFSvtWyynNKSrdrnw2QKNYHdZJSFyh7dtehinxtpiBEvARnfFj0OigBoOQTFmlgzisGOjuyP3ndcg4lcTnyy10LYzALfBm8Ou5Rrs9rxhHFuXIBks7-Db7d7Dw","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6IjRhZjk1NjY1LTNiOTctNDc2Yy04MjMzLWEyMjJhZDYxNDg1OCIsImV4cCI6MTQ5ODgxMTY2OCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiI5MzExOTZjOS03NGU2LTQ3ZDUtYjA3MC0xMGNhYzg2NjUzZTAiLCJjbGllbnRfaWQiOiJhY21lIn0.Y3JQppvnMs2vFZAIJcz9DHrz3T-pgfLG2lb7zfaumu0Jhblv84-GUrTC7w2qi2L_Hw66SuQ0TsHH0jGE8V_B3SmsaLSYIH4BQLBq2aUrjlWU7mi8QXWV_hfHWBMRX49QtsqRm65no7nRkOEvEgL_rRX3U2mwzp8pR7366Bvcl1k7mWEQqHKIEARCyi77Azjm4ExL5Ktu6CHLhsNrqAxYxjGpHdTVMxe3SJ-9JvynIywA6tgFlHvbbaI7kv7mLNx2jEqlipoJ0YRkGgCxLn3lce6Aq0E5Ms8FKJm-ehZAeAcpr2f1ulKa67bCNfhahluQ4VRWEQL3Q7xmNkT7cDzPfg","expires_in":43199,"scope":"openid","jti":"4af95665-3b97-476c-8233-a222ad614858"}
+```
+
+* authorization_code方式
+
+浏览器请求`http://localhost:9999/oauth/authorize?response_type=code&client_id=acme&redirect_uri=http://notes.coding.me`将被重定向到`http://notes.coding.me/?code=Axjz0f`
+
+使用该`code`值请求`/oauth/token -d grant_type=authorization_code`接口或取`accesstoken`
+
+```
+curl acme:acmesecret@localhost:9999/oauth/token -d grant_type=authorization_code -d client_id=acme -d redirect_uri=http://notes.coding.me -d code=Axjz0f
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTYyNjMzMzAsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6ImFhZTgzOTYxLTlmZjAtNGM4NC04YzA2LWM0NzE5YjI2YmFiOCIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.ZWYqGtPr5OdXyZ1mV2IX887l41Z4z74Tf4gY8aj7ZMeRYdwsHihKOFqhmUr0rCV1ihbvSu0p6E7O9vIH53m_a-LiAa4EAcpEVh7r9_yHzHln5RXBA2o09TySe1NgU_TjhbamgTK-IZdtdNRmxC18pW_9Xs-h2rV3LztmVtFOoNSao2fnyeZ9mEC6GIdjm7mqxnBB4S5VUVbrLU6DnnL2zqZACRUBpwNbe4g1dCept-cITuxYoaAjKbBq9ogUStiAgnScTHqlZ7UdtUVS1KKBTfKcF6XT6kwF5d5VuS1nehvxglXuP_WPJZx5b0-m53Avw_sH_iSeYeNd_kae452v6g","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6ImFhZTgzOTYxLTlmZjAtNGM4NC04YzA2LWM0NzE5YjI2YmFiOCIsImV4cCI6MTQ5ODgxMjEzMCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiIyMTMxZTRjZS0wY2VmLTQ5MzMtODc4Ni0wMjhmY2ZiYWRjOWQiLCJjbGllbnRfaWQiOiJhY21lIn0.V_780DB7hlAo6cDr3d6ffNhv1acSR4xzJKdx3wnv-Tms-1Q4ckgSPspHmTd4k9R3vKRw22ywplr20oX3ZxlMNEs3Qn38esg2A_PT2mxW_xHgtmyOmRLul-RLe_QuBMf3UziCp5qZGY1_Pj16HyK56rjJvswWw6j79MQToGte7G_3sgzw9HuRUcQnW-VTUDjfWt7V3DyEpQL89ST7DvL40ptzu19_ZvVaxFx40htDTj4GO8pLS3wnh8QMOBFEQcvaHJfM0yHiPm23oQcsLGV4K5FBTi80PzlGty6juONxJ-RIPBkfSzbLi4BmPuEgsZQ62YdvjKEOE3Q4DCEflSbIuQ","expires_in":43199,"scope":"openid","jti":"aae83961-9ff0-4c84-8c06-c4719b26bab8"}
+```
+
+接着使用`/oauth/token -d grant_type=refresh_token -d refresh_token=$refresh_token`接口返回一个新的`accesstoken`
+
+```
+curl acme:acmesecret@localhost:9999/oauth/token -d grant_type=refresh_token -d refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6ImFhZTgzOTYxLTlmZjAtNGM4NC04YzA2LWM0NzE5YjI2YmFiOCIsImV4cCI6MTQ5ODgxMjEzMCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiIyMTMxZTRjZS0wY2VmLTQ5MzMtODc4Ni0wMjhmY2ZiYWRjOWQiLCJjbGllbnRfaWQiOiJhY21lIn0.V_780DB7hlAo6cDr3d6ffNhv1acSR4xzJKdx3wnv-Tms-1Q4ckgSPspHmTd4k9R3vKRw22ywplr20oX3ZxlMNEs3Qn38esg2A_PT2mxW_xHgtmyOmRLul-RLe_QuBMf3UziCp5qZGY1_Pj16HyK56rjJvswWw6j79MQToGte7G_3sgzw9HuRUcQnW-VTUDjfWt7V3DyEpQL89ST7DvL40ptzu19_ZvVaxFx40htDTj4GO8pLS3wnh8QMOBFEQcvaHJfM0yHiPm23oQcsLGV4K5FBTi80PzlGty6juONxJ-RIPBkfSzbLi4BmPuEgsZQ62YdvjKEOE3Q4DCEflSbIuQ
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTYyNjMzNjYsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJSRUFEIl0sImp0aSI6IjY5Y2M4NGQzLTk3NmQtNGEwYS05OTYxLTIzMjJkMzg5YTBhNCIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.BK20cQmpWVrClPzAiYLOWnxWPbGV9r8VAKab_dfTUvwO7tqAw6At4uR0FeYXuZ2TWYlJq2nwDVXNdsXEyU0PTriicMpszsOUmWUla7Vhl4HD36ymA93rO7LbIXKaZ5iiCrVNa8ybzPsN2nYhoTSesjBsWZUd9evdUAqalzcW_sa-utq4tevTLpnsiYezZwnLhI-H8f7amZ1CFA9vd_8VI-CLXxXds2qX6SQ5VRSUYbYkPdETsD_ZW1teOOTVWCBRF9-DgRSs3VVzIlArfR-Xt2sSYR4y8GNYAdGxSbE5TSnhRUMvhGmgqOUfvnWp_Bkip3Fo8ngzML8x3yqHad7DGA","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyIiwic2NvcGUiOlsib3BlbmlkIl0sImF0aSI6IjY5Y2M4NGQzLTk3NmQtNGEwYS05OTYxLTIzMjJkMzg5YTBhNCIsImV4cCI6MTQ5ODgxMjEzMCwiYXV0aG9yaXRpZXMiOlsiUkVBRCJdLCJqdGkiOiIyMTMxZTRjZS0wY2VmLTQ5MzMtODc4Ni0wMjhmY2ZiYWRjOWQiLCJjbGllbnRfaWQiOiJhY21lIn0.G4pjGKrpjm09yvX-6HuNvqtOUsx3sNP-0mDXx4hh_As7n0yLwqBR6EttM5fXeGa5-YFc1PiuG6AOY0AhEGfJHeeX17Nk5dG-Tjf3CikALUqfP2ywTgl3cGa9RMnJjAFZM_VJm2-G7VB5hA899jQ5KrxNqMUC_Yt7udeJxuY-iFspB7aIf07BwktiKFAkStdXmzSI07RL0cLj6Zk5Sbr_uGGka0RsXWBh-EaxqJuuXSdsWPYakgxrlKRIWEsUmg39k3f2RQ1DdJLp6ZSogPWzJmsRKU7Fpygsn46q3WzBK5gBLJzqcqK6I-qjRUqy-V7pFhCR996fC2bs3beA_6jlOQ","expires_in":43199,"scope":"openid","jti":"69cc84d3-976d-4a0a-9961-2322d389a0a4"}
+```
+
+#### 3、client_credentials方式（客户端凭证许可）
+
+使用grant_type=client_credentials，不需要用户名密码，可直接获取accesstoken
+
+```
+curl acme:acmesecret@localhost:9999/oauth/token -d grant_type=client_credentials -d scope=openid
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcGVuaWQiXSwiZXhwIjoxNDk2MjU3ODczLCJhdXRob3JpdGllcyI6WyJSRUFEIiwiV1JJVEUiXSwianRpIjoiMjM1YmE5MTEtOWU5NC00OTIzLWJlNjYtNjEzYzNlMTU5N2NlIiwiY2xpZW50X2lkIjoiYWNtZSJ9.v7JY7GVIbuwgcHSB88DSfP8HmeT89Pf_pdbhZ1lsaOMcLlMJBZmXSpUAr919mewh45dIad_6lMTa8PmbYFBPFmFoVQog7-3kaKEm-NbU3S09MXoLQt3Sg-Co9sEXcnZZ32SrAjTrti0MIUL_DatyfNmrTBP-ivhNUM3v9RZhsBMSCf_zfvkGdS2kiVY8oV1elxkGeQIc__-FMZtixutomuTeYlAxcG0nSEhCNgH0-V4u5GzULqOBlZA0OQbZ6ouZKB88OIm85Yp9p3jhzPDS29unkSDSZyPZZgq2lN6tGKN1Bq5LNHKi-Lr1W7XK1inCOj-kepejSr2SkHvrOKHY3w","token_type":"bearer","expires_in":43199,"scope":"openid","jti":"235ba911-9e94-4923-be66-613c3e1597ce"}
+```
+
+#### 4、authorization_code方式（授权码许可）
+
+使用`authorization_code`方式获取`accesstoken`分两步：
+
+1、首先使用`/oauth/authorize?response_type=code`接口获取`code`
+
+2、接着使用`/oauth/token -d grant_type=authorization_code`接口获取`accesstoken`
+
+```
+http://localhost:9999/oauth/authorize?response_type=code&client_id=acme&redirect_uri=http://notes.coding.me
+```
+
+输入用户名、密码，最终重定向到`http://notes.coding.me/?code=8JsYwV`，再根据返回的`code`获取accesstoken
+
+```
+$ curl acme:acmesecret@localhost:9999/oauth/token -d grant_type=authorization_code -d client_id=acme -d redirect_uri=http://notes.coding.me -d code=8JsYwV
 {"access_token":"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0NzgzNzkzMzQsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6IjAyMjgyMzNkLWVjY2MtNDU5YS1hYjBkLTg4ZGU2MDQ0MWIwMCIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIm9wZW5pZCJdfQ.tGQjNR_Xg_E52xFEIashqWPnH-hnvBsqkKjbNiQgHUGE-4wHNJ-wxxia-cfvfD4IR5fA3AekSUWzGk3uLaD4q66HmCHgl1zdSjgXEqsEC-C1VqI_FLq0HlunFtJ6i4mHjY0nIxsIx5hhdoyVONJk3HyckegCaVUKy8g1q8hn7qiuBpcZCTUhfuYq5Lb1A3nbCUMQRB72eZ3slC8l3Y60kAhVP3gcY5gLYwPrL-1O2FuwEOO_vpoe-yzdp-WxUabpX7v-78oxkpA2LKxQu-9fNwlJmsTTzk4bZ-onRHdVtHjZr_QvqekXTqDBnXVrv26r2cpSqli69R58M8OIvHKpAw","token_type":"bearer","refresh_token":"eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIm9wZW5pZCJdLCJhdGkiOiIwMjI4MjMzZC1lY2NjLTQ1OWEtYWIwZC04OGRlNjA0NDFiMDAiLCJleHAiOjE0ODA5MjgxMzQsImF1dGhvcml0aWVzIjpbIlJFQUQiLCJXUklURSJdLCJqdGkiOiIyMzJkZDBiMS1kNzc2LTQ4MTItOTllNy0xNjRiZmNhOTY3ZTgiLCJjbGllbnRfaWQiOiJhcHBDbGllbnQifQ.WRgsM-ZFyYwU7ObLjNSzRFe0CUU0P7TyprKY825qL8teHPhgKLOxYDSXDDdjIwlLzOFXRz0skX6-h6kLXvXvvkPRFG3KK01j7jVmOfn1bXTYP0sgOwZvBvkDeZp0LFZIBL2ruH_ciWou6LleCgRIhtUVyKYMojr4-4eFZ_ou6J8ezykvzlf-xwTXJhwOqXf57jeYsXy9eitUf8A_x7Lrz9HffW0HA5JfhFX1P-_W1vS3uUqwQLZovhAzEK2LctZmUHAfUKIuE9Z4Z1_pQDDK7hWbv2eRHAlceRGRvztrEebv-5cksfEUWpiQmj913t20uXzEfJYU3e9JqbqxbaahKA","expires_in":43199,"scope":"openid","jti":"0228233d-eccc-459a-ab0d-88de60441b00"}
 ```
 
-* 使用`token`方式获取`accesstoken`
+#### 5、implicit方式（隐式许可）
 
-使用`GET`方式请求`http://localhost:9999/oauth/authorize`接口传递`response_type=token`使用用户名密码授权（基于HttpBasic）获取`accesstoken`
+使用`token`方式获取`accesstoken`（/oauth/authorize?response_type=token）可通过浏览器输入用户名密码直接获取`accesstoken`
 
 ```
-http://localhost:9999/oauth/authorize?response_type=token&client_id=appClient&redirect_uri=http://notes.coding.me
+http://localhost:9999/oauth/authorize?response_type=token&client_id=acme&redirect_uri=http://notes.coding.me
 ```
 
 输入用户名、密码，最终重定向到`http://notes.coding.me/#access_token=eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0NzgzNzg4NjEsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6ImEyMzE3NTlmLTZhMzktNGQ3YS1iMmMyLWIwOTdlMWZjZTEwMiIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIm9wZW5pZCJdfQ.ASSLsAJa8CsgZDsv5vH8BqYTbmoCCeYKqSmv4m9jl2XpWc2edvauy89Vxvj8z6kKGr8QqDg786u6MMW7fX5CAjP34Mfs9XVI8gfg20Xk0sHoS3WPx0mseIXdJbaxhj0526X5947-eeMr_LDC5N_XlPQ3Qq_PcY3tmyh92IWUri2rRJMKEPHrmVqqWPcPcCSHoEaaMWNTq_gsdbsZiyX4jaW24LVQ0HZ4oYMnmUzbLCvIyPcKF7WR-KKEnOykYX5FJPjnbUz6EK5yG_icdkULsxmDr05JrEgkKR0n_JfL9_gOqpI8mpJFBkAUghM1y9No_fGvvhb22o-H8ar5wnGqYA&token_type=bearer&expires_in=43199&scope=openid&jti=a231759f-6a39-4d7a-b2c2-b097e1fce102`
@@ -131,7 +179,7 @@ $ curl -XPOST -H "Authorization: Bearer $TOKEN" "localhost:9090/users"
 
 ```
 $ curl -H "Authorization: Bearer $TOKEN" "localhost:9999/user"
-{"details":{"remoteAddress":"0:0:0:0:0:0:0:1","sessionId":null,"tokenValue":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzgzODY3NjcsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6Ijc2OTYzMzkyLWUxYzItNDdmMC05ODZjLWZhODQxZmZhYTU1NyIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIm9wZW5pZCJdfQ.WiTSjojK0ow1x7fP0y3EZohCozU2kB4Sxi2xPd7A5RSb48N-KDM8PYjSX--D1iiEQiRt2xOdBij0J0A7pIHfqZMijphyJQtPQjyv_82AIP7hFuW-PFMo2P1VVSTWrZeYzCMCr8p1QaHbM5bJ1KTeiT_Ak8vbqmnd7r4KpqoyEehca69tr02nTPhi7YOfAjUm9czwqhhi2w4bL9b2epYhmv_d2B2LwCY4NZxv64xfeCti8ya-AG_hYoqNRGj2nIHaAR_uCWmDD6_tdESy5oKZJ-881Dr0VFduJu4cAcSxJX-PqI6HklknTm_Vzqik9lI9S02z3fj5sBM7trWvNuBnrQ","tokenType":"Bearer","decodedDetails":null},"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"userAuthentication":{"details":null,"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"principal":"admin","credentials":"N/A","name":"admin"},"principal":"admin","credentials":"","oauth2Request":{"clientId":"appClient","scope":["openid"],"requestParameters":{"client_id":"appClient"},"resourceIds":[],"authorities":[],"approved":true,"refresh":false,"redirectUri":null,"responseTypes":[],"extensions":{},"grantType":null,"refreshTokenRequest":null},"clientOnly":false,"name":"admin"}
+{"details":{"remoteAddress":"0:0:0:0:0:0:0:1","sessionId":null,"tokenValue":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzgzODY3NjcsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUkVBRCIsIldSSVRFIl0sImp0aSI6Ijc2OTYzMzkyLWUxYzItNDdmMC05ODZjLWZhODQxZmZhYTU1NyIsImNsaWVudF9pZCI6ImFwcENsaWVudCIsInNjb3BlIjpbIm9wZW5pZCJdfQ.WiTSjojK0ow1x7fP0y3EZohCozU2kB4Sxi2xPd7A5RSb48N-KDM8PYjSX--D1iiEQiRt2xOdBij0J0A7pIHfqZMijphyJQtPQjyv_82AIP7hFuW-PFMo2P1VVSTWrZeYzCMCr8p1QaHbM5bJ1KTeiT_Ak8vbqmnd7r4KpqoyEehca69tr02nTPhi7YOfAjUm9czwqhhi2w4bL9b2epYhmv_d2B2LwCY4NZxv64xfeCti8ya-AG_hYoqNRGj2nIHaAR_uCWmDD6_tdESy5oKZJ-881Dr0VFduJu4cAcSxJX-PqI6HklknTm_Vzqik9lI9S02z3fj5sBM7trWvNuBnrQ","tokenType":"Bearer","decodedDetails":null},"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"userAuthentication":{"details":null,"authorities":[{"authority":"READ"},{"authority":"WRITE"}],"authenticated":true,"principal":"admin","credentials":"N/A","name":"admin"},"principal":"admin","credentials":"","oauth2Request":{"clientId":"acme","scope":["openid"],"requestParameters":{"client_id":"acme"},"resourceIds":[],"authorities":[],"approved":true,"refresh":false,"redirectUri":null,"responseTypes":[],"extensions":{},"grantType":null,"refreshTokenRequest":null},"clientOnly":false,"name":"admin"}
 ```
 
 阅读以下类源码
@@ -143,3 +191,12 @@ org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint /oau
 org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter 自定义WebSecurityConfigurer
 
 注意:以上请求url中的请求参数名不能随意修改。
+
+
+### 参考文章
+
+http://callistaenterprise.se/blogg/teknik/2015/04/27/building-microservices-part-3-secure-APIs-with-OAuth/
+
+http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#user-schema
+
+https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
